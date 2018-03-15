@@ -1,47 +1,109 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<xs:schema xmlns="http://www.w3.org/2001/XMLSchema">
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="web-app">
+        <xs:complexType>
+            <attribute name="id" type="xs:string"/>
+            <attribute name="version" type="xs:string"/>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element name="display-name" type="xs:string"/>
+                <xs:element name="welcome-file-list" type="welcome-file-list" />
+                <xs:element name="filter" type="filter" />
+                <xs:element name="filter-mapping" type="filter-mapping" />
+                <xs:element name="listener" type="listener" />
+                <xs:element name="servlet" type="servlet" />
+                <xs:element name="servlet-mapping" type="servlet-mapping" />
+                <xs:element name="error-page" type="error-page" />
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="welcome-file-list">
+        <xs:sequence>
+            <xs:element name="welcome-file" type="welcome-file" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="welcome-file">
+        <xs:restriction base="xs:string">
+            <pattern value="[a-zA-Z0-9][.html|.jsp|.htm]">
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="dispatcher">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="REQUEST"></xs:enumeration>
+            <xs:enumeration value="ERROR"></xs:enumeration>
+            <xs:enumeration value="FORWARD"></xs:enumeration>
+            <xs:enumeration value="INCLUDE"></xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="init-param">
+        <xs:sequence>
+            <xs:element name="param-name" type="xs:string"/>
+            <xs:element name="param-value" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="icon">
+        <xs:sequence>
+            <xs:element name="small-icon" type="xs:string" minOccurs="0"/>
+            <xs:element name="large-icon" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="filter">
+        <xs:sequence>
+            <xs:element name="icon" type="icon" minOccurs="0"/>
+            <xs:element name="description" type="xs:string" minOccurs="0"/>
+            <xs:element name="filter-name" type="xs:string"/>
+            <xs:element name="filter-class" type="xs:string"/>
+            <xs:element name="init-param" type="init-param" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
 
 
-<element name="web-app">
-  <attribute name="id" type="string" use="optional"/>
-  <attribute name="id" type="string" use="optional"/>
-  <all>
-    <element name="display-name" type="string" maxOccurs="unbounded"/>
-    <element name="welcome-file-list" type="welcome-file-list" maxOccurs="unbounded"/>
-    <element name="filter" type="filter" maxOccurs="unbounded"/>
-    <element name="filter-mapping" type="filter-mapping" maxOccurs="unbounded"/>
-  </all>
-</element>
+    <xs:complexType name="filter-mapping">
+        <xs:sequence>
+            <xs:element name="filter-name" type="xs:string"/>
+            <xs:element name="url-pattern" type="xs:string"/>
+            <xs:element name="dispatcher" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
 
-<complexType name="welcome-file-list">
-  <element name="welcome-file" type="welcome-file" maxOccurs="unbounded"/>
-</complexType>
+    <xs:complexType name="listener">
+        <xs:element name="listener-class" type="xs:string"/>
+    </xs:complexType>
 
-<simpleType name="welcome-file">
-  <restriction base="string">
-    <pattern value="[a-zA-Z0-9][.html|.jsp|.htm]">
-  </restriction>
-</simpleType>
+    <xs:complexType name="servlet">
+        <xs:sequence>
+            <xs:element name="icon" type="icon" minOccurs="0"/>
+            <xs:element name="display-name" type="xs:string" minOccurs="0"/>
+            <xs:element name="servlet-name" type="xs:string"/>
+            <choice>
+                <xs:element name="servlet-class" type="xs:string"/>
+                <xs:element name="jsp-file" type="xs:string"/>
+            </choice>
+            <xs:element name="load-on-startup" type="xs:string" minOccurs="0"/>
+            <xs:element name="security-role-ref" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
 
-<complexType name="init-param">
-  <sequence>
-    <element name="param-name" type="string"/>
-    <element name="param-value" type="string"/>
-  </sequence>
-</complexType>
+    <xs:complexType name="servlet-mapping">
+        <xs:sequence>
+            <xs:element name="servlet-name" type="xs:string"/>
+            <xs:element name="url-pattern" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
 
-<complexType name="filter">
-  <sequence>
-    <element name="filter-name" type="string"/>
-    <element name="filter-class" type="string"/>
-    <element name="init-param" type="init-param" maxOccurs="unbounded"/>
-  </sequence>
-</complexType>
+    <xs:complexType name="error-page">
+        <xs:sequence>
+            <xs:element name="error-code" type="xs:integer" minOccurs="0"/>
+            <xs:element name="exception-type" type="xs:string" minOccurs="0"/>
+            <xs:element name="location" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
 
-<complexType name="filter-mapping">
-  <sequence>
-    <element name="filter-name" type="string"/>
-    <element name="url-pattern" type="string"/>
-    <element name="dispatcher" type="string"/>
-  </sequence>
-</complexType>
+</xs:schema>

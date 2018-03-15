@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns="http://www.w3.org/2001/XMLSchema">
+
+
+<element name="web-app">
+  <attribute name="id" type="string" use="optional"/>
+  <attribute name="id" type="string" use="optional"/>
+  <all>
+    <element name="display-name" type="string" maxOccurs="unbounded"/>
+    <element name="welcome-file-list" type="welcome-file-list" maxOccurs="unbounded"/>
+    <element name="filter" type="filter" maxOccurs="unbounded"/>
+    <element name="filter-mapping" type="filter-mapping" maxOccurs="unbounded"/>
+  </all>
+</element>
+
+<complexType name="welcome-file-list">
+  <element name="welcome-file" type="welcome-file" maxOccurs="unbounded"/>
+</complexType>
+
+<simpleType name="welcome-file">
+  <restriction base="string">
+    <pattern value="[a-zA-Z0-9][.html|.jsp|.htm]">
+  </restriction>
+</simpleType>
+
+<complexType name="init-param">
+  <sequence>
+    <element name="param-name" type="string"/>
+    <element name="param-value" type="string"/>
+  </sequence>
+</complexType>
+
+<complexType name="filter">
+  <sequence>
+    <element name="filter-name" type="string"/>
+    <element name="filter-class" type="string"/>
+    <element name="init-param" type="init-param" maxOccurs="unbounded"/>
+  </sequence>
+</complexType>
+
+<complexType name="filter-mapping">
+  <sequence>
+    <element name="filter-name" type="string"/>
+    <element name="url-pattern" type="string"/>
+    <element name="dispatcher" type="string"/>
+  </sequence>
+</complexType>

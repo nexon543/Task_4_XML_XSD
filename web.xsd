@@ -4,8 +4,6 @@
 
     <xs:element name="web-app">
         <xs:complexType>
-            <xs:attribute name="id" type="xs:string"/>
-            <xs:attribute name="version" type="xs:string"/>
             <xs:choice maxOccurs="unbounded">
                 <xs:element name="display-name" type="xs:string"/>
                 <xs:element name="welcome-file-list" type="welcome-file-list"/>
@@ -16,7 +14,10 @@
                 <xs:element name="servlet-mapping" type="servlet-mapping"/>
                 <xs:element name="error-page" type="error-page"/>
             </xs:choice>
+            <xs:attribute name="id" type="xs:string"/>
+            <xs:attribute name="version" type="xs:string"/>
         </xs:complexType>
+
     </xs:element>
 
     <xs:complexType name="welcome-file-list">
@@ -27,7 +28,7 @@
 
     <xs:simpleType name="welcome-file">
         <xs:restriction base="xs:string">
-            <xs:pattern value="[a-zA-Z0-9][.html|.jsp|.htm]"/>
+            <xs:pattern value="([a-zA-Z0-9])*.(html|jsp|htm)"/>
         </xs:restriction>
     </xs:simpleType>
 

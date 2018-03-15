@@ -4,17 +4,17 @@
 
     <xs:element name="web-app">
         <xs:complexType>
-            <attribute name="id" type="xs:string"/>
-            <attribute name="version" type="xs:string"/>
+            <xs:attribute name="id" type="xs:string"/>
+            <xs:attribute name="version" type="xs:string"/>
             <xs:choice maxOccurs="unbounded">
                 <xs:element name="display-name" type="xs:string"/>
-                <xs:element name="welcome-file-list" type="welcome-file-list" />
-                <xs:element name="filter" type="filter" />
-                <xs:element name="filter-mapping" type="filter-mapping" />
-                <xs:element name="listener" type="listener" />
-                <xs:element name="servlet" type="servlet" />
-                <xs:element name="servlet-mapping" type="servlet-mapping" />
-                <xs:element name="error-page" type="error-page" />
+                <xs:element name="welcome-file-list" type="welcome-file-list"/>
+                <xs:element name="filter" type="filter"/>
+                <xs:element name="filter-mapping" type="filter-mapping"/>
+                <xs:element name="listener" type="listener"/>
+                <xs:element name="servlet" type="servlet"/>
+                <xs:element name="servlet-mapping" type="servlet-mapping"/>
+                <xs:element name="error-page" type="error-page"/>
             </xs:choice>
         </xs:complexType>
     </xs:element>
@@ -27,7 +27,7 @@
 
     <xs:simpleType name="welcome-file">
         <xs:restriction base="xs:string">
-            <pattern value="[a-zA-Z0-9][.html|.jsp|.htm]">
+            <xs:pattern value="[a-zA-Z0-9][.html|.jsp|.htm]"/>
         </xs:restriction>
     </xs:simpleType>
 
@@ -74,7 +74,9 @@
     </xs:complexType>
 
     <xs:complexType name="listener">
-        <xs:element name="listener-class" type="xs:string"/>
+        <xs:sequence>
+            <xs:element name="listener-class" type="xs:string"/>
+        </xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="servlet">
@@ -82,10 +84,10 @@
             <xs:element name="icon" type="icon" minOccurs="0"/>
             <xs:element name="display-name" type="xs:string" minOccurs="0"/>
             <xs:element name="servlet-name" type="xs:string"/>
-            <choice>
+            <xs:choice>
                 <xs:element name="servlet-class" type="xs:string"/>
                 <xs:element name="jsp-file" type="xs:string"/>
-            </choice>
+            </xs:choice>
             <xs:element name="load-on-startup" type="xs:string" minOccurs="0"/>
             <xs:element name="security-role-ref" type="xs:string" minOccurs="0"/>
         </xs:sequence>
